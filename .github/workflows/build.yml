@@ -4,7 +4,7 @@
     branches: [ "main" ]
 
   jobs:
-   FIRST-JOB build: 
+   build: 
     runs-on: ubuntu:latest
     steps:
      - name: run one-command
