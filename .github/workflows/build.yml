@@ -5,6 +5,9 @@
     branches: [ "main" ]
 
   jobs:
-   - name: FIRST-JOB build 
-   runs-on: ubuntu:lateste
-   
+   FIRST-JOB build: 
+    runs-on: ubuntu:latest
+    steps:
+     - name: run one-command
+       run: echo "Hi hmad Khalaf"
+       
