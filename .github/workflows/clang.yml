@@ -29,7 +29,7 @@
        run: |
           mkdir ./my_code
           cp *.c my_code
-          CP *.h my_code
+          cp *.h my_code
          
      - name: Upload artifacts
        uses: actions/upload-artifact@v3
