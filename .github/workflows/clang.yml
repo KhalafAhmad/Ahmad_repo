@@ -5,6 +5,47 @@
     branches: [ "main" ]
 
   jobs:
+
+   Create_App_Release:
+    runs-on: ubuntu-latest
+    needs: BULID_DOCKER_IMAGE
+    steps:
+      - name: Download artifacts from build 
+        uses:  actions/download-artifact@v3
+        with:
+         name: Source-Code
+
+      - name: Archive Site Contants
+        uses: thedoctor0/zip-release@master
+        with:
+         filename: khalaf_c.zip
+
+      - name: Create Apps release in github
+        uses: actions/create-release@v1
+        id: create-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Change the test release from index.html to main.c
+            - First: create a simple add function 
+            - Second: call this function from other file 
+          draft: false
+          prerelease: false
+
+
+      - name: Upload Assets to New Release
+        uses:  actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ./khalaf_c.zip
+          asset_name: kalaf.v${{ github.run_number }}.zip
+          asset_content_type: application/zip
+
    BULID_DOCKER_IMAGE: 
     runs-on: ubuntu-latest
     steps:
@@ -35,4 +76,5 @@
        uses: actions/upload-artifact@v3
        with:
           name: Source-Code
-          path: my_code # or path/to/artifact
+          path: my_code 
+     
