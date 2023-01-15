@@ -21,7 +21,7 @@
          filename: khalaf_c.zip
 
       - name: Create Apps release in github
-        uses: actions/create-release@v2
+        uses: actions/create-release@v1
         id: create-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
