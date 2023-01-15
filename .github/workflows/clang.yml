@@ -15,7 +15,7 @@
        uses: actions/checkout@v3 
      
      - name: Check if gcc is installed in runner 
-       run: gcc -version
+       run: gcc --version
 
      - name: Create Object file of ahmad.c and main.c in runner 
        run: | 
