@@ -22,17 +22,17 @@
         gcc -Wall -c main.c 
         gcc -Wall -c ahmad.c
       
-      - name: Create Setup binary file
-        run: gcc -o setup *.o
+     - name: Create Setup binary file
+       run: gcc -o setup *.o
 
-      - name: Create directory of source code
-        run: |
+     - name: Create directory of source code
+       run: |
           mkdir ./my_code
           cp *.c my_code
           CP *.h my_code
          
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+     - name: Upload artifacts
+       uses: actions/upload-artifact@v3
          with:
             name: Source-Code
             path: my_code # or path/to/artifact
