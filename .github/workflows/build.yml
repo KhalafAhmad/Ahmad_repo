@@ -31,5 +31,5 @@
      - name: Push Created image to dockerhub 
        run: |
           docker tag khalaf khalaf:2.1
-          docker tag khalaf:2.1 khalafahmad/test_repo:2.1
+          docker tag khalaf:2.1 khalafahmad/test_repo:3.1
           docker push khalafahmad/test_repo:3.1
