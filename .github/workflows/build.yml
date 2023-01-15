@@ -5,7 +5,7 @@
     branches: [ "main" ]
 
   jobs:
-   BULID DOCKER IMAGE: 
+   BULID_DOCKER_IMAGE: 
     runs-on: ubuntu-latest
     steps:
      - name: Check if docker is installed 
