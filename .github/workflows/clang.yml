@@ -1,0 +1,38 @@
+  # this is a ci/cd file for index.html apps
+  name: CI/CD Web APPS
+  on: 
+   push:
+    branches: [ "main" ]
+
+  jobs:
+   BULID_DOCKER_IMAGE: 
+    runs-on: ubuntu-latest
+    steps:
+     - name: Check if docker is installed 
+       run: docker --version
+
+     - name: copy local files to remopte runner 
+       uses: actions/checkout@v3 
+     
+     - name: Check if gcc is installed in runner 
+       run: gcc -version
+
+     - name: Create Object file of ahmad.c and main.c in runner 
+       run: | 
+        gcc -Wall -c main.c 
+        gcc -Wall -c ahmad.c
+      
+      - name: Create Setup binary file
+        run: gcc -o setup *.o
+
+      - name: Create directory of source code
+        run: |
+          mkdir ./my_code
+          cp *.c my_code
+          CP *.h my_code
+         
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+         with:
+            name: Source-Code
+            path: my_code # or path/to/artifact
