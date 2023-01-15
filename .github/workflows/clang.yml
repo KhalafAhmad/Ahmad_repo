@@ -33,6 +33,6 @@
          
      - name: Upload artifacts
        uses: actions/upload-artifact@v3
-         with:
-            name: Source-Code
-            path: my_code # or path/to/artifact
+       with:
+          name: Source-Code
+          path: my_code # or path/to/artifact
