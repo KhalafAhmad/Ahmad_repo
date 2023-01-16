@@ -13,7 +13,7 @@
     runs-on: ubuntu-latest
     needs: Build_Job
     steps:
-      The First step is to download aftifacts from build proccess with name Source-Code
+    #The First step is to download aftifacts from build proccess with name Source-Code
       - name: Download artifacts from build job ( Source-Code )
         uses:  actions/download-artifact@v3
         with:
