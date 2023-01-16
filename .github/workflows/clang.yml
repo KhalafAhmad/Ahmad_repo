@@ -31,7 +31,7 @@
       - name: Archive Site Contants
         uses: thedoctor0/zip-release@master
         with:
-         path: Source-Code
+        #  path: Source-Code
          filename: Source-Code.zip
 
       
@@ -39,7 +39,7 @@
       - name: Archive Site Contants
         uses: thedoctor0/zip-release@master
         with:
-         path: Binary-Code
+        #  path: Binary-Code
          filename: Binary-Code.zip
 
 
