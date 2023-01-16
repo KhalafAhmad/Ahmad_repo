@@ -1,33 +1,39 @@
-  # this is a ci/cd file for index.html apps
-  name: CI/CD Web APPS
-  on: 
-   push:
+  # this is a CI/CD for C language program
+  
+  name: CI/CD For C language 
+  on:
+  push:
+    tags:
+      - '*'
     branches: [ "main" ]
 
   jobs:
 
    Create_App_Release:
     runs-on: ubuntu-latest
-    needs: BULID_DOCKER_IMAGE
+    needs: Build_Job
     steps:
+      # The First step is to download aftifacts from build proccess with name Source-Code
       - name: Download artifacts from build 
         uses:  actions/download-artifact@v3
         with:
          name: Source-Code
-
+       
+      # The Second Step to create Archive of artifacts
       - name: Archive Site Contants
         uses: thedoctor0/zip-release@master
         with:
          filename: khalaf_c.zip
 
+      # The Thierd step Create a release of our projects
       - name: Create Apps release in github
         uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: v.1
+          release_name: Setup-${{ tag_name }}
           body: |
             Change The test release from index.html to main.c
             - First: create a simple add function 
@@ -35,7 +41,7 @@
           draft: false
           prerelease: false
 
-
+      # The Fourth Step is upload Assets to created release
       - name: Upload Assets to New Release
         uses:  actions/upload-release-asset@v1
         env:
@@ -46,35 +52,49 @@
           asset_name: kalaf.v${{ github.run_number }}.zip
           asset_content_type: application/zip
 
-   BULID_DOCKER_IMAGE: 
+   # The First job will run in this work flow 
+
+   Build_Job: 
     runs-on: ubuntu-latest
     steps:
      - name: Check if docker is installed 
        run: docker --version
-
+    
+    # Checkout our code to runner machine 
      - name: copy local files to remopte runner 
        uses: actions/checkout@v3 
      
+     # Check the version of C-Compiler 
      - name: Check if gcc is installed in runner 
        run: gcc --version
 
+     #create Object Files 
      - name: Create Object file of ahmad.c and main.c in runner 
        run: | 
         gcc -Wall -c main.c 
         gcc -Wall -c ahmad.c
       
+      # Compile Object file 
      - name: Create Setup binary file
        run: gcc -o setup *.o
 
+     # Create directory which contain the source code of our projects 
      - name: Create directory of source code
        run: |
           mkdir ./my_code
           cp *.c my_code
           cp *.h my_code
-         
-     - name: Upload artifacts
+     
+     # Create artifacts of source code which found in my_code directory     
+     - name: Upload artifacts of source code
        uses: actions/upload-artifact@v3
        with:
           name: Source-Code
           path: my_code 
+     # Create artifacts of application binary file 
      
+     - name: Upload artifacts of binary code
+       uses: actions/upload-artifact@v3
+       with:
+          name: binary_code
+          path: setup
