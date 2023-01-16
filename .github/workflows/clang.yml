@@ -26,8 +26,8 @@
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: v1.2 #${{ github.ref }}
-          release_name: khalaf_omer #Release ${{ github.ref }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: |
             Change the test release from index.html to main.c
             - First: create a simple add function 
