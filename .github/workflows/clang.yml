@@ -29,7 +29,7 @@
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Change the test release from index.html to main.c
+            Change The test release from index.html to main.c
             - First: create a simple add function 
             - Second: call this function from other file 
           draft: false
