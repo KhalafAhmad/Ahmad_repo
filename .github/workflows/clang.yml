@@ -28,12 +28,12 @@
         with:
           tag_name: v1.2 #${{ github.ref }}
           release_name: khalaf_omer #Release ${{ github.ref }}
-          body: |
-            Change the test release from index.html to main.c
-            - First: create a simple add function 
-            - Second: call this function from other file 
-          draft: false
-          prerelease: false
+          # body: |
+          #   Change the test release from index.html to main.c
+          #   - First: create a simple add function 
+          #   - Second: call this function from other file 
+          # draft: false
+          # prerelease: false
 
 
       - name: Upload Assets to New Release
