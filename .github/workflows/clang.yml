@@ -27,6 +27,11 @@
          name: Binary-Code
 
 
+      # JUST TEST THE CURRENT WORKING DIRECTORY
+      - name: TEST CURRENT WORKDIR
+        run: ls -l
+
+
       # The Second Step to create Archive of  Source-Code artifacts
       - name: Archive Site Contants
         uses: thedoctor0/zip-release@master
