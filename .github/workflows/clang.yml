@@ -2,9 +2,9 @@
   
   name: CI/CD For C language 
   on:
-  push:
-    tags:
-      - '**'
+    push:
+     tags:
+       - '**'
     branches: [ "main" ]
 
   jobs:
