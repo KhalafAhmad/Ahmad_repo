@@ -23,15 +23,15 @@
       - name: Create Apps release in github
         uses: actions/create-release@v1
         id: create-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
           tag_name: v1.2 #${{ github.ref }}
           release_name: khalaf_omer #Release ${{ github.ref }}
-          # body: |
-          #   Change the test release from index.html to main.c
-          #   - First: create a simple add function 
-          #   - Second: call this function from other file 
+          body: |
+            Change the test release from index.html to main.c
+            - First: create a simple add function 
+            - Second: call this function from other file 
           draft: false
           prerelease: false
 
