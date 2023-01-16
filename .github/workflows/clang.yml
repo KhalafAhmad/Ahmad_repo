@@ -36,10 +36,7 @@
       - name: Archive Site Contants
         uses: thedoctor0/zip-release@master
         with:
-         exclusions: 
-         - ahmad.c
-         -  main.c 
-         - khalaf_sum.h
+         exclusions: ' ahmad.c  main.c  khalaf_sum.h'
          filename: Source-Code.zip
 
       
