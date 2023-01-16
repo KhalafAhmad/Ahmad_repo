@@ -33,7 +33,7 @@
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
           tag_name: v.1
-          release_name: Setup-${{ tag_name }}
+          release_name: Setup-v.1
           body: |
             Change The test release from index.html to main.c
             - First: Create a simple add function 
