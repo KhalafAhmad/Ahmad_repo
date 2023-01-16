@@ -23,8 +23,8 @@
       - name: Create Apps release in github
         uses: actions/create-release@v1
         id: create-release
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
           tag_name: v1.2 #${{ github.ref }}
           release_name: khalaf_omer #Release ${{ github.ref }}
