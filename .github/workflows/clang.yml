@@ -13,15 +13,15 @@
     runs-on: ubuntu-latest
     needs: Build_Job
     steps:
-      # The First step is to download aftifacts from build proccess with name Source-Code
-      # - name: Download artifacts from build 
-      #   uses:  actions/download-artifact@v3
-      #   with:
-      #    name: Source-Code
+      The First step is to download aftifacts from build proccess with name Source-Code
+      - name: Download artifacts from build job ( Source-Code )
+        uses:  actions/download-artifact@v3
+        with:
+         name: Source-Code
 
 
       # The First step is to download aftifacts from first job proccess with name binary_code
-      - name: Download artifacts from build 
+      - name: Download artifacts from build job ( Binary-Code )
         uses:  actions/download-artifact@v3
         with:
          name: Binary-Code
@@ -32,19 +32,22 @@
         run: ls -l
 
 
-      # The Second Step to create Archive of  Source-Code artifacts
-      # - name: Archive Site Contants
-      #   uses: thedoctor0/zip-release@master
-      #   with:
-      #   #  path: Source-Code
-      #    filename: Source-Code.zip
+      #The Second Step to create Archive of  Source-Code only  artifacts
+      - name: Archive Site Contants
+        uses: thedoctor0/zip-release@master
+        with:
+         exclusions: 
+         - ahmad.c
+         -  main.c 
+         - khalaf_sum.h
+         filename: Source-Code.zip
 
       
       # The Second Step to create Archive of  Binary-Code artifacts
       - name: Archive Site Contants
         uses: thedoctor0/zip-release@master
         with:
-        #  path: Binary-Code
+         exclusions: setup
          filename: Binary-Code.zip
 
 
@@ -53,6 +56,7 @@
       - name: TEST CURRENT WORKDIR SECOND TIME 
         run: ls -l
 
+      
       # The Thierd step Create a release of our projects
       - name: Create Apps release in github
         uses: actions/create-release@v1
@@ -71,14 +75,26 @@
 
 
       # The Fourth Step is upload Assets to created release
-      - name: Upload Assets to New Release
+      - name: Upload Binary-Code Assets to New Release
         uses:  actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: ./Binary-Code.zip 
-          asset_name: kalaf.v${{ github.run_number }}.zip
+          asset_name: khalaf.v${{ github.run_number }}-Binary.zip
+          asset_content_type: application/zip
+
+    
+      # The Fifth Step is upload Assets to created release
+      - name: Upload Source-Code Assets to New Release
+        uses:  actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ./Source-Code.zip 
+          asset_name: khalaf.v${{ github.run_number }}-Source.zip
           asset_content_type: application/zip
 
 
@@ -120,14 +136,14 @@
           cp *.h my_code
      
 
-     # Create artifacts of source code which found in my_code directory     
+     # Create artifacts just for source code which found in my_code directory     
      - name: Upload artifacts of source code
        uses: actions/upload-artifact@v3
        with:
           name: Source-Code
           path: my_code 
 
-     # Create artifacts of application binary file 
+     # Create artifacts just for ( setup ) application binary file 
      
      - name: Upload artifacts of binary code
        uses: actions/upload-artifact@v3
