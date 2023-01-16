@@ -1,4 +1,6 @@
   # this is a CI/CD for C language program
+  # our program just have two .c file and one .h file
+  # it ask a user for input two numbers and print the summation of the process
   
   name: CI/CD For C language 
   on:
@@ -8,11 +10,18 @@
      branches: [ "main" ]
 
   jobs:
-
+  
+   ################################ This is a second job ############################################################## 
    Create_App_Release:
     runs-on: ubuntu-latest
     needs: Build_Job
     steps:
+
+     # First check the current working directory before run second job    
+      - name: Check Working Directory
+        run: ls -la
+    
+    
     #The First step is to download aftifacts from build proccess with name Source-Code
       - name: Download artifacts from build job ( Source-Code )
         uses:  actions/download-artifact@v3
@@ -27,9 +36,9 @@
          name: Binary-Code
 
 
-      # JUST TEST THE CURRENT WORKING DIRECTORY
-      - name: TEST CURRENT WORKDIR
-        run: ls -l
+      # check current working directory after run download artifacts
+      - name: check working directory
+        run: ls -la
 
 
       #The Second Step to create Archive of  Source-Code only  artifacts
@@ -37,7 +46,7 @@
         uses: thedoctor0/zip-release@master
         with:
          exclusions: ' ahmad.c  main.c  khalaf_sum.h'
-         filename: Source-Code.zip
+         filename: Binary-Code.zip
 
       
       # The Second Step to create Archive of  Binary-Code artifacts
@@ -45,13 +54,13 @@
         uses: thedoctor0/zip-release@master
         with:
          exclusions: setup
-         filename: Binary-Code.zip
+         filename: Source-Code.zip
 
 
 
-      # JUST TEST THE CURRENT WORKING DIRECTORY
-      - name: TEST CURRENT WORKDIR SECOND TIME 
-        run: ls -l
+      # check current working directory after create an archive for both source-code && binary-code
+      - name: check working directory 
+        run: ls -la
 
       
       # The Thierd step Create a release of our projects
@@ -62,10 +71,10 @@
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
           tag_name: ${{ github.run_number }}
-          release_name: Setup-${{ github.run_number}}
+          release_name: Setup-v${{ github.run_number}}
           body: |
-            Change The test release from index.html to main.c
-            - First: Create a simple add function 
+            create both source and binary archive assets for our project
+            - First: Create a simple add function
             - Second: call this function from other file 
           draft: false
           prerelease: false
